@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+          <h1 class="my-4">you have passe the following exam:
+        <small>{{exam.titre }}</small>
+      </h1>
+              <div class="row">
+        <div class="col-md-7">
+          <a href="#">
+            <img class="img-fluid rounded mb-3 mb-md-0" src="{{exam.logo}}" alt="">
+          </a>
+        </div>
+        <div class="col-md-5">
+          <h3>{{exam.titre}}</h3>
+            <p>passe score : {{exam.total }}</p>
+          <a class="btn btn-primary" href="/qcm/">retour</a>
+        </div>
+      </div><hr>
+
+      <!-- Page Heading -->
+
+
+      <!-- Project One -->
+
+
+
+
+
+
+
+      <hr>
+
+      <!-- Pagination -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+   {% endblock %}

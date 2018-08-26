@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading -->
+          <div class="content mt-3">
+            <div class="animated fadeIn">
+                            <form method="POST" action="" enctype="multipart/form-data">
+
+                <div class="row">
+
+                        <div class="col-xs-6 col-sm-6">
+                                 {%csrf_token%}
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>Edit Exam</strong>
+                                </div>
+                                <div class="card-body card-block">
+                                    <div class="form-group">
+                                        <label class=" form-control-label">Name :</label>
+                                        <div class="input-group">
+                                            <input class="form-control" name="examName" value="{{examen.name}}">
+                                        </div>
+                                        <small class="form-text text-muted"></small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class=" form-control-label">Description</label>
+                                        <div class="input-group">
+                                            <textarea name="ExamDesc" id="ExamDesc" rows="9" value="{{examen.description}}" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+  <div class="col-lg-6">
+
+                                <div class="card">
+                                <div class="card-header">
+                                    <strong class="card-title">Category</strong>
+                                </div>
+                                <div class="card-body">
+
+                                      <select data-placeholder="{{examen.category}}" class="standardSelect" tabindex="1" name="category">
+                                        <option value="{{examen.category}}"></option>
+                                        <option value="WEB">WEB</option>
+                                        <option value="IOT">IOT</option>
+                                        <option value="devops">devops</option>
+                                        <option value="United Kingdom">IOT</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                              <br><br>
+
+                                <center>    <button class="btn btn-success btn-lg" type="submit" name="submit" >Create</button>
+                             </center>
+                  </div>
+
+                </div>
+</form>
+
+
+            </div><!-- .animated -->
+        </div><!-- .content -->
+
+      <!-- Project One -->
+
+
+
+
+      <!-- Pagination -->
+
+    </div>
+    <!-- /.container -->
+{% endblock %}

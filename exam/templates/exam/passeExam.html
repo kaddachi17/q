@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz{% endblock %}
+
+{% block content %}
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .button {
+            border-radius: 4px;
+            background-color: #108118;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 28px;
+            padding: 20px;
+            width: 200px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .button:hover span {
+            padding-right: 25px;
+        }
+
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+    </style>
+
+
+    <div class="body row">
+        <div class="hero-unit col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Exam {{ examen.name }}</h4>
+                </div>
+                <div class="card-body">
+
+
+                    <p> r u ready?</p>
+                </div>
+                <div class="col-lg-4">
+                    {% for question in examen.question_set.all %}
+                        {% if forloop.counter == 1 %}
+                            <a href="{{ question.id }}" class="button"><span>START</span></a>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </div>
+        <p id="demo"></p>
+
+    </div>
+
+{% endblock %}

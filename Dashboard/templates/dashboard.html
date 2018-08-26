@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% block title %}"THE" Dashboard{% endblock %}
+{% block content %}
+
+
+<style>
+	body {font-family: Arial;}
+
+	/* Style the tab */
+	.tab {
+	    overflow: hidden;
+	    border: 1px solid #ccc;
+	    background-color: #f1f1f1;
+	}
+
+	/* Style the buttons inside the tab */
+	.tab button {
+	    background-color: inherit;
+	    float: left;
+	    border: none;
+	    outline: none;
+	    cursor: pointer;
+	    padding: 14px 16px;
+	    transition: 0.3s;
+	    font-size: 17px;
+	}
+
+	/* Change background color of buttons on hover */
+	.tab button:hover {
+	    background-color: #ddd;
+	}
+
+	/* Create an active/current tablink class */
+	.tab button.active {
+	    background-color: #ccc;
+	}
+
+	/* Style the tab content */
+	.tabcontent {
+	    display: none;
+	    padding: 6px 12px;
+	    border: 1px solid #ccc;
+	    border-top: none;
+	}
+</style>
+<div class="w3-container">
+
+	<div class="w3-card-4" style="width:100%;">
+		<header class="w3-container ">
+		<div class="tab">
+	  <button type="button" class="tablinks" onclick="openCity(event, 'London')">My Students</button>
+	  <button type="button" class="tablinks" onclick="openCity(event, 'Paris')">All Students</button>
+
+		</div>
+		</header>
+
+		<div class="w3-container">
+			<div id="London" class="tabcontent">
+				<div class="body row"><!-- TITLE -->
+					<h2>
+							Manage My Students
+
+
+
+
+						</h2>
+					</div>
+					<div class="body row"><!-- TABLE -->
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Created At</th>
+									<th>User Level</th>
+
+									<th>Actions</th>
+
+								</tr>
+							</thead>
+							<tbody>
+				             {% for user in all_my_students %}
+								<tr>
+										<td>{{user.id}}</td>
+										<td><a href="/users/show/{{user.id}}">{{ user.first_name }} {{ user.last_name }}</a></td>
+										<td>{{ user.email }}</td>
+										<td>{{ user.created_at }}</td>
+										<td>{{ user.user_level }}</td>
+
+											<td>
+
+												<a href="/dashboard/remove/{{user.id}}">Remove</a>
+											</td>
+
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+				</div>
+			</div>
+
+			<div id="Paris" class="tabcontent">
+				<div class="body row"><!-- TITLE -->
+					<h2>
+							Inquire about other Students
+
+
+
+
+						</h2>
+					</div>
+					<div class="body row"><!-- TABLE -->
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Created At</th>
+									<th>User Level</th>
+
+									<th>Actions</th>
+
+								</tr>
+							</thead>
+							<tbody>
+				             {% for user in all_students %}
+								<tr>
+										<td>{{user.id}}</td>
+										<td><a href="/users/show/{{user.id}}">{{ user.first_name }} {{ user.last_name }}</a></td>
+										<td>{{ user.email }}</td>
+										<td>{{ user.created_at }}</td>
+										<td>{{ user.user_level }}</td>
+
+											<td>
+												<a href="/dashboard/add/{{user.id}}">Add to my Students</a>
+
+											</td>
+
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+
+
+
+
+
+
+
+<script>
+	function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+	}
+</script>
+
+
+
+{% endblock %}

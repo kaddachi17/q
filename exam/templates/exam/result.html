@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz{% endblock %}
+
+{% block content %}
+
+
+
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title mb-3">{{exam.name}}</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="mx-auto d-block">
+                                    <h5 class="text-sm-center mt-2 mb-1">{{username}}</h5>
+                                    <div class="location text-sm-center"> your score in <p><b>{{ exam.name }}</b></p> was : {{score}}</div>
+                                </div>
+                                <hr>
+                                <div class="card-text text-sm-center">
+                                    <a href="#"><i class="fa fa-facebook pr-1"></i></a>
+                                    <a href="#"><i class="fa fa-twitter pr-1"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin pr-1"></i></a>
+                                    <a href="#"><i class="fa fa-pinterest pr-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz{% endblock %}
+
+{% block content %}
+
+    <form method="POST">
+
+        {% csrf_token %}
+        <fieldset>
+
+            <legend>Pass exam as :</legend>
+
+            <div>
+                <input type="radio" id="training" name="test" value="Train" onclick="timercheck()"/>
+                <label for="training">Training </label>
+            </div>
+            <div id="timer" style="display: none">
+                <input type="radio" id="withtimer" name="timer" value="TT">
+                <labes>with timer</labes>
+                <input type="radio" id="withouttimer" name="timer" value="T">
+                <labes>without timer</labes>
+            </div>
+            <div>
+                <input type="radio" id="one_try" name="test" value="One"  onclick="certifcheck()"/>
+                <label for="one_try">One try</label>
+            </div>
+            <div id="certif" style="display: none">
+                <input type="radio" id="withcertif" name="timer" value="Certifie">
+                <labes for="timer">Certifie</labes>
+                <input type="radio" id="withoutcertif" name="timer" value="One_train">
+                <labes>without certif</labes>
+            </div>
+
+
+            <script>
+                function timercheck() {
+                    if (document.getElementById('training').checked){
+                    document.getElementById('timer').style.display = 'block';
+                    document.getElementById('certif').style.display = 'none';
+                }
+                else
+                    document.getElementById('timer').style.display = 'none';
+
+
+                }
+                 function certifcheck() {
+                    if (document.getElementById('one_try').checked){
+                    document.getElementById('certif').style.display = 'block';
+                }
+                else
+                    document.getElementById('certif').style.display = 'none';
+                    document.getElementById('timer').style.display = 'none';
+
+
+                }
+            </script>
+        </fieldset>
+        <input type="submit" value="Submit">
+        <a class="button" href="/exam/{{ exam.id }}/passe"> Pass </a>
+    </form>
+
+{% endblock %}

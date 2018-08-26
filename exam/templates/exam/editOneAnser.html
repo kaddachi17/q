@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+    {% block title %}Login{% endblock %}
+
+    {% block content %}
+        <!-- Page Content -->
+        <div class="container">
+<form method="post" action="">
+          <!-- Page Heading -->
+
+                        <div class="col-xs-12 col-sm-12">
+                                 {%csrf_token%}
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="col-lg-6 ">
+                                    <strong>Create Question</strong></div>
+                                </div>
+                                <div class="card-body card-block">
+                                    <div class="form-group">
+                                        <label class=" form-control-label">Description: :</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"></div>
+                                            <input class="form-control" value="{{question.description}}" name="Description">
+                                        </div>
+                                        <small class="form-text text-muted"></small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=" form-control-label">Header text</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"></div>
+                                            <input class="form-control" value="{{question.header_text}}" name="Header_text">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=" form-control-label">Footer text</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"></div>
+                                            <input class="form-control"value="{{question.footer_text}}" name="Footer_text">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class=" form-control-label">Success msg</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"></div>
+                                            <input class="form-control" value="{{question.success_msg}}" name="Success_msg">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=" form-control-label">fail msg</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"></div>
+                                            <input class="form-control" value="{{question.fail_msg}}"  name="Fail_msg">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=" form-control-label">points</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"></div>
+                                            <input class="form-control" type="number" value="{{question.points}}"  name="points">
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+          <!-- Project One -->
+
+
+
+         <div class="card"  >
+
+                                 <div class="card-header">
+                                      <div class="col-lg-6 ">
+                                          <strong class="card-title">{{question.description}}</strong></div>
+                                           <div class="col-lg-6 ">
+                                               <button  class="btn btn-success btn-block">submit</button></div>
+ </div>
+             <div class="card-body">
+                            <table class="table">
+                              <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                  <th scope="col">answer variant</th>
+                                  <th scope="col">answer description</th>
+                                  <th scope="col">points</th>
+                                </tr>
+                              </thead>
+                 {%for choice in question.one_answer_set.all %}
+<!--creation d un compteur pour faire le name et l affecter au post-->
+
+                              <tbody>
+                                <tr><td><input type="hidden" value="{{choice.id}}" name="id{{forloop.counter}}">{{forloop.counter}}</td>
+                                  <td><input value="{{choice.answer_variant}}"name="answer_variant{{forloop.counter}}"></td>
+                                  <td><input value="{{choice.answer_description}}"name="answer_description{{forloop.counter}}"></td>
+                                  <td><input value="{{choice.points}}"name="points{{forloop.counter}}"></td>
+                                </tr>
+
+                              </tbody>
+
+{%endfor%}</table>
+
+         </div></div>
+
+
+
+
+
+
+
+
+</form>
+
+
+
+          <!-- Pagination -->
+
+        </div>
+        <!-- /.container -->
+    {% endblock %}

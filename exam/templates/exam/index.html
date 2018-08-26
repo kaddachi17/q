@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz{% endblock %}
+
+{% block content %}
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html {
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
+
+        @media screen and (max-width: 650px) {
+            .column {
+                width: 50%;
+                display: block;
+            }
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            padding: 0 16px;
+        }
+
+        .container::after, .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .title {
+            color: grey;
+        }
+
+        .button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .button:hover {
+            background-color: #555;
+        }
+    </style>
+
+
+
+
+
+    <!-- Page Heading -->
+    <h1>Les Examens
+    </h1>
+
+    <!-- Project One -->
+
+
+
+    <br>
+
+
+    <div class="row">
+        {% for exam in all_exam %}
+            <div class="column">
+                <div class="card">
+                    <img src="{{ exam.logo.url }}" alt="{{ exam.name }}" style="width:100%">
+                    <div class="container">
+                        <h2>{{ exam.name }}</h2>
+                        <p class="title">{{ exam.category }}</p>
+                        <p>{{ exam.description }}</p>
+                        {% if request.session.is_prof == False %}
+                            <p><a class="button" href="/exam/{{ exam.id }}/passe"> Pass </a></p>
+
+
+                        {% endif %}
+                        {% if request.session.is_prof == True %}
+                            <p><a class="button" href="/exam/{{ exam.id }}/mode"> Mode </a></p>
+
+                            <p><a class="button" href="/exam/{{ exam.id }}/passe"> Pass </a></p>
+                            <p><a class="button" href="/exam/{{ exam.id }}"> Consult </a></p>
+                            <p><a class="button" href="/exam/{{ exam.id }}/edit"> Edit </a></p>
+                            <p><a class="button" href="/exam/{{ exam.id }}/addQuest"> Add Quest </a></p>
+                            <p><a class="button" href="{% url 'addStudent' pk=exam.pk %}"> Add student </a></p>
+
+                            <p><a class="button" href="/exam/{{ exam.id }}/deleteEXam"> Delete </a></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+
+
+
+
+
+
+    <!-- <p>{{exam.name}}</p>
+          <div class="container">
+            <img src="{{exam.logo.url}}" alt="Avatar" class="image" style="width:50%">
+            <div class="middle">
+              <a class="button" href="/exam/{{exam.id}}/passe" style="width:70%" >Pass</a>
+
+              <a class="button" href="/exam/{{exam.id}}" style="width:70%" ><span>Consult</span></a>
+              <a class="button" href="/exam/{{exam.id}}/edit" style="width:70%" ><span>Edit</span></a>
+              <a class="button" href="/exam/{{exam.id}}/addQuest" style="width:70%" ><span>Add Quest</span></a>
+              <a class="button" href="/exam/{{exam.id}}/deleteEXam" style="width:70%" ><span>Delete</span></a>
+            </div>
+          </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- /.row -->
+
+
+
+
+
+
+
+    <!-- Pagination -->
+
+
+    <!-- /.container -->
+{% endblock %}

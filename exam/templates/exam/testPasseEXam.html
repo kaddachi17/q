@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz{% endblock %}
+
+{% block content %}
+
+<h1>{{num}}</h1>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Exam {{examen.name}}</h4>
+                                </div>
+                                <div class="card-body">
+
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                                            </li>
+                                             {% for question in examen.question_set.all %}
+                                                <input type="hidden" value="0">
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="{{question.id}}-tab" data-toggle="tab" href="#{{question.id}}" role="tab" aria-controls="{{question.id}}" aria-selected="false">{{forloop.counter}}</a>
+                                            </li>
+                                            {%endfor%}
+
+                                        </ul>
+                                        <div class="tab-content pl-3 p-1" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                <h3>Home</h3>
+                                                <p>CERTIFICAT</p>
+                                            </div>
+                                             {% for question in examen.question_set.all %}
+                                            <div class="tab-pane fade" id="{{question.id}}" role="tabpanel" aria-labelledby="{{question.id}}-tab">
+                                                    {%if question.one_answer_set.all %}
+                                                 <div class="col col-md-3"><label class=" form-control-label">{{question.description}}</label></div>
+                            <div class="col col-md-9">
+                              <div class="form-check">
+                                   {%for choix in question.one_answer_set.all %}
+                                <div class="radio">
+                                  <label for="{{choix.id}}" class="form-check-label ">
+                                    <input type="radio" id="{{choix.id}}" name="radios" onclick="test(); value="{{choix.answer_variant}}" class="form-check-input">{{choix.answer_variant}}
+                                  </label>
+                                </div>
+
+                                  {%endfor%}
+                                  <a href="#{{question.id}}" class="btn btn-block ">{{forloop.counter}}</a>
+
+                              </div>
+                            </div>
+
+
+
+
+
+
+               {%endif%}
+
+{%if question.multi_choice_answer_set.all %}
+
+<div class="card"  >
+                                 <div class="card-header">
+ <div class="col-lg-6 ">
+                                          <strong class="card-title">{{question.description}}</strong></div>
+
+                                 </div>
+    <div class="card-body">
+                            <table class="table">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col">answer variant</th>
+                                  <th scope="col">answer description</th>
+                                  <th scope="col">points</th>
+                                </tr>
+                              </thead>
+                                {%for choix in question.multi_choice_answer_set.all %}
+
+  <tbody>
+                                <tr>
+                                  <td>{{choix.multi_variant}}</td>
+                                  <td>{{choix.multi_description}}</td>
+                                  <td>{{choix.points}}</td>
+                                </tr>
+
+                              </tbody>
+
+
+{%endfor%}</table>
+
+</div></div>
+ {%endif%}
+                                {%if question.free_text_set.all %}
+
+
+
+
+
+
+          {%for choix in question.free_text_set.all %}
+ <div class="row form-group">
+                            <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">{{question.description}}</label></div>
+                            <div class="col-12 col-md-9">   <textarea name="textarea-input" id="textarea-input" rows="9" placeholder="Content..." class="form-control"></textarea></div>
+                          </div>
+
+    <br>{%endfor%}
+                                  <a href="#{{question.id}}" class="btn btn-block ">{{forloop.counter}}</a>
+
+
+                                               {%endif%}
+                                            </div>
+                                                                                                                               {%endfor%}
+
+                                        </div>
+
+
+                                </div>
+                            </div>
+  <script type="text/javascript">
+    function test() {
+    alert(document.getElementById('toc').checked);
+}
+  </script>
+
+{% endblock %}

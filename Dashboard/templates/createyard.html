@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %}"THE" Yard{% endblock %}
+{% block content %}
+
+
+
+
+	<div class="body row">
+      <div class="hero-unit col-sm-12">
+      <div class="card-header">
+        <h2> Hello ! you are about to create a virtual classroom  {{professor.first_name}}</h2>
+      </div>
+      <div class="card-body">
+        <h4> First Add the Exam !</h4>
+        <style>
+          html {
+            box-sizing: border-box;
+          }
+
+          *, *:before, *:after {
+            box-sizing: inherit;
+          }
+
+          .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+          }
+
+          @media screen and (max-width: 650px) {
+            .column {
+              width: 50%;
+              display: block;
+            }
+          }
+
+          .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          }
+
+          .container {
+            padding: 0 16px;
+          }
+
+          .container::after, .row::after {
+            content: "";
+            clear: both;
+            display: table;
+          }
+
+          .title {
+            color: grey;
+          }
+
+          .button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+          }
+
+          .button:hover {
+            background-color: #555;
+          }
+        </style>
+
+  <form method="POST" action="" enctype="multipart/form-data">
+          {%csrf_token%}
+          <div class="row">
+
+            <select data-placeholder="Choose an exam..." class="standardSelect" tabindex="1" name="selected">
+              {% for exam in all_exam %}
+              <option value="{{exam.id}}" >{{exam.name}}</option>
+
+            {%endfor%}
+            </select>
+                <a href="{% url 'create_view' %}">Want to create a new exam ? Click here!</a>
+
+            </div>
+
+
+<h4> Now add the students !</h4>
+
+<style>
+  .accordion {
+      background-color: #eee;
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+      transition: 0.4s;
+  }
+
+  .active, .accordion:hover {
+      /* background-color: #ccc; */
+  }
+
+  .panel {
+      padding: 0 18px;
+      display: none;
+      background-color: white;
+      overflow: hidden;
+  }
+</style>
+
+<button class="accordion" type="button" > Your Students </button>
+<div class="panel">
+{% for user in professor.UserS_set.all %}
+<input type="checkbox" name="hisstudent" value="{{user.id}}" /> {{user.first_name}}
+{% endfor %}
+
+</div>
+
+<button class="accordion" type="button" > All the Student in the platfrom </button>
+<div class="panel">
+
+  {% for user in all_users %}
+  <input type="checkbox" name="allstudent" value="{{user.id}}" /> {{user.first_name}}
+  {% endfor %}
+
+</div>
+
+<button class="accordion" type="button" > Not in the platform </button>
+<div class="panel">
+<h2><a href="{% url 'sendemail' %}">send an email ? Click here!</a></h2>
+</div>
+
+
+  <center>    <button class="btn btn-success btn-lg" type="submit" name="submit" >Submit Decision </button></center>
+    </form>
+  </div>
+</div>
+</div>
+<script>
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+              panel.style.display = "none";
+          } else {
+              panel.style.display = "block";
+          }
+      });
+  }
+</script>
+
+	{% endblock %}

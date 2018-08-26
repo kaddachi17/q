@@ -1,0 +1,141 @@
+  {% extends "base.html" %}
+
+    {% block title %}Login{% endblock %}
+
+    {% block content %}
+        <!-- Page Content -->
+        <div class="container">
+
+          <!-- Page Heading -->
+          <h1 class="my-4">Les Examens
+            <small>active</small>
+          </h1>
+
+          <!-- Project One -->
+
+         {% for question in examen.question_set.all %}
+
+                 {%if question.one_answer_set.all %}
+         <div class="card"  >
+
+                                 <div class="card-header">
+                                      <div class="col-lg-6 ">
+                                          <strong class="card-title">{{question.description}}</strong></div>
+                                            <div class="col-lg-3 ">
+                                               <a href="/exam/{{question.id}}/editone" class="btn btn-success btn-block">Edit Question</a>
+                                           </div>
+                                     <div class="col-lg-3">
+                                         <a href="/exam/{{question.id}}/deleteQuest" class="btn btn-success btn-block">DELETE Question</a>
+                                     </div>
+ </div>
+             <div class="card-body">
+                            <table class="table">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col">answer variant</th>
+                                  <th scope="col">answer description</th>
+                                  <th scope="col">points</th>
+                                </tr>
+                              </thead>
+                 {%for choix in question.one_answer_set.all %}
+
+
+                              <tbody>
+                                <tr>
+                                  <td>{{choix.answer_variant}}</td>
+                                  <td>{{choix.answer_description}}</td>
+                                  <td>{{choix.points}}</td>
+                                </tr>
+
+                              </tbody>
+
+{%endfor%}</table>
+
+         </div></div>
+               {%endif%}
+
+{%if question.multi_choice_answer_set.all %}
+
+<div class="card"  >
+                                 <div class="card-header">
+ <div class="col-lg-6 ">
+                                          <strong class="card-title">{{question.description}}</strong></div>
+                                            <div class="col-lg-3 ">
+                                               <a href="/exam/{{question.id}}/editmulti" class="btn btn-success btn-block">Edit Question</a>
+                                           </div>
+                                     <div class="col-lg-3">
+                                         <a href="/exam/{{question.id}}/deleteQuest" class="btn btn-success btn-block">DELETE Question</a>
+                                     </div>
+                                 </div>
+    <div class="card-body">
+                            <table class="table">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col">multi variant</th>
+                                  <th scope="col">multi description</th>
+                                  <th scope="col">points</th>
+                                </tr>
+                              </thead>
+                                {%for choix in question.multi_choice_answer_set.all %}
+
+  <tbody>
+                                <tr>
+                                  <td>{{choix.multi_variant}}</td>
+                                  <td>{{choix.multi_description}}</td>
+                                  <td>{{choix.points}}</td>
+                                </tr>
+
+                              </tbody>
+
+
+{%endfor%}</table>
+
+</div></div>
+ {%endif%}
+                                {%if question.free_text_set.all %}
+
+
+<div class="card"  >
+                                 <div class="card-header">
+ <div class="col-lg-6 ">
+                                          <strong class="card-title">{{question.description}}</strong></div>
+                                           <div class="col-lg-3 ">
+                                               <a href="/exam/{{question.id}}/editfree" class="btn btn-success btn-block">Edit Question</a>
+                                           </div>
+                                     <div class="col-lg-3">
+                                         <a href="/exam/{{question.id}}/deleteQuest" class="btn btn-success btn-block">DELETE Question</a>
+                                     </div>
+                                 </div>  <div class="card-body">
+
+          {%for choix in question.free_text_set.all %}
+<p>{{choix.text}}</p>
+
+
+    <br>{%endfor%}
+                                  </div>
+</div>
+
+                                               {%endif%}
+
+
+
+
+
+
+
+
+
+              {% endfor %}
+
+
+
+
+
+
+          <hr>
+
+          <!-- Pagination -->
+
+        </div>
+        <!-- /.container -->
+    {% endblock %}
